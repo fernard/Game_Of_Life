@@ -76,42 +76,17 @@ document.addEventListener('DOMContentLoaded', function() {
     GameOfLife.prototype.computeCellNextState = function(x, y) {
         var livingCells = 0;
 
-        if (this.getCell(x - 1, y - 1).className === 'live') {
-            livingCells++;
-        }
+        this.getCell(x - 1, y - 1).className === 'live' && livingCells++;
+        this.getCell(x, y - 1).className === 'live' && livingCells++;
+        this.getCell(x + 1, y - 1).className === 'live' && livingCells++;
+        this.getCell(x - 1, y).className === 'live' && livingCells++;
+        this.getCell(x + 1, y).className === 'live' && livingCells++;
+        this.getCell(x - 1, y + 1).className === 'live' && livingCells++;
+        this.getCell(x, y + 1).className === 'live' && livingCells++;
+        this.getCell(x + 1, y + 1).className === 'live' && livingCells++;
 
-        if (this.getCell(x, y - 1).className === 'live') {
-            livingCells++;
-        }
+        (livingCells === 2 || livingCells === 3) ? 1 : 0
 
-        if (this.getCell(x + 1, y - 1).className === 'live') {
-            livingCells++;
-        }
-
-        if (this.getCell(x - 1, y).className === 'live') {
-            livingCells++;
-        }
-
-        if (this.getCell(x + 1, y).className === 'live') {
-            livingCells++;
-        }
-        if (this.getCell(x - 1, y + 1).className === 'live') {
-            livingCells++;
-        }
-
-        if (this.getCell(x, y + 1).className === 'live') {
-            livingCells++;
-        }
-        if (this.getCell(x + 1, y + 1).className === 'live') {
-            livingCells++;
-        }
-
-        if (livingCells === 2 || livingCells === 3) {
-
-            return 1;
-        }
-
-        return 0;
 
     }
 
