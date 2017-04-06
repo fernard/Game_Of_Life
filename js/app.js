@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
-    GameOfLife.prototype.runInitialFn = function() {
+    GameOfLife.prototype.nextGenFn = function() {
 
         this.computeNextGeneration();
         this.printNextGeneration();
@@ -144,8 +144,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     GameOfLife.prototype.runInterval = function() {
 
-        this.runInitialFn = this.runInitialFn.bind(this);
-        setInterval(this.runInitialFn, 500);
+        this.nextGenFn = this.nextGenFn.bind(this);
+        setInterval(this.nextGenFn, 500);
 
     }
 
