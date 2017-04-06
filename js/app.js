@@ -9,8 +9,15 @@ document.addEventListener('DOMContentLoaded', function() {
         this.cells = [];
         this.boardState = [];
 
-    }
 
+    }
+    GameOfLife.prototype.start = function() {
+
+        this.createBoard();
+        this.firstGlider();
+
+
+    }
 
     GameOfLife.prototype.createBoard = function() {
 
@@ -46,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     GameOfLife.prototype.getCell = function(x, y) {
 
         var index = (x - 1) + ((y - 1) * this.width);
-          console.log(this.cells[index]);
+
         return this.cells[index];
     }
 
@@ -74,27 +81,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     GameOfLife.prototype.computeCellNextState = function(x, y) {
+
         var livingCells = 0;
 
-        this.getCell(x - 1, y - 1).className === 'live' && livingCells++;
-        this.getCell(x, y - 1).className === 'live' && livingCells++;
-        this.getCell(x + 1, y - 1).className === 'live' && livingCells++;
-        this.getCell(x - 1, y).className === 'live' && livingCells++;
-        this.getCell(x + 1, y).className === 'live' && livingCells++;
-        this.getCell(x - 1, y + 1).className === 'live' && livingCells++;
-        this.getCell(x, y + 1).className === 'live' && livingCells++;
-        this.getCell(x + 1, y + 1).className === 'live' && livingCells++;
+        var neighbours = [this.getCell(x - 1, y - 1), this.getCell(x, y - 1), this.getCell(x + 1, y - 1), this.getCell(x - 1, y), this.getCell(x + 1, y), this.getCell(x - 1, y + 1), this.getCell(x, y + 1), this.getCell(x + 1, y + 1)];
 
-        (livingCells === 2 || livingCells === 3) ? 1 : 0
+        for (var i = 0; i < neighbours.length; i++) {
+
+            if (neighbours[i] !== undefined && neighbours[i].className === "live") {
+
+                livingCells++;
+            }
+
+        }
+
+
+        if (livingCells === 2 || livingCells === 3) {
+            return 1;
+        }
+
+        return 0;
+
 
 
     }
 
     GameOfLife.prototype.computeNextGeneration = function() {
+        this.boardState = [];
+        for (var i = 1; i <= this.height; i++) {
 
-        for (var i = 1; i <= this.height.length; i++) {
-
-            for (var j = 1; j <= this.width.length; j++) {
+            for (var j = 1; j <= this.width; j++) {
 
                 this.boardState.push(this.computeCellNextState(j, i));
             }
@@ -104,16 +120,54 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
+    GameOfLife.prototype.printNextGeneration = function() {
+
+        for (var i = 0; i < this.boardState.length; i++) {
+
+            if (this.boardState[i] === 1 && this.cells[i].className !== 'live') {
+
+                this.cells[i].classList.add('live');
+
+
+            } else if (this.boardState[i] === 0 && this.cells[i].className === 'live')
+                this.cells[i].classList.remove('live');
+        }
+
+    }
+
+    GameOfLife.prototype.runInitialFn = function() {
+
+        this.computeNextGeneration();
+        this.printNextGeneration();
+
+    }
+
+    GameOfLife.prototype.runInterval = function() {
+
+        this.runInitialFn = this.runInitialFn.bind(this);
+        setInterval(this.runInitialFn, 500);
+
+    }
+
+
+    document.querySelector('#play').addEventListener('click', function(e) {
+
+        e.preventDefault();
+
+        game.runInterval();
+
+    });
+
+    document.querySelector('#pause').addEventListener('click', function(e) {
+
+        e.preventDefault();
+        clearInterval(game.runInterval);
+
+    });
+
 
     var game = new GameOfLife(15, 15);
-    game.createBoard();
-    game.firstGlider();
-    game.computeNextGeneration();
-    console.log(game.boardState);
-
-
-
-
+    game.start();
 
 
 

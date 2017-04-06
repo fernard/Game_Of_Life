@@ -27,7 +27,15 @@ body {
     min-width: 100px
 }
 
-#game-menu {
-    margin: 50px auto;
-    width: auto;
+#game-set {
+margin: 0 auto;
+width: 40%;
+display: flex;
+justify-content: center;
+
+}
+
+#game-set button {
+
+  margin: 10px;
 }
