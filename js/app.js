@@ -72,13 +72,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         },
 
+        drawNumber(max) {
+
+            return Math.round(Math.random() * (max - 1) + 1);
+        },
+
         firstGlider() {
 
-            this.cellSetState(3, 1, 'live');
-            this.cellSetState(4, 6, 'live');
-            this.cellSetState(1, 11, 'live');
-            this.cellSetState(12, 3, 'live');
-            this.cellSetState(4, 5, 'live');
+            for (let i = 0; i < 10; i++) {
+
+                this.cellSetState(this.drawNumber(this.width), this.drawNumber(this.height), 'live');
+
+            }
+
 
         },
 
