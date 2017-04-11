@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let livingCells = 0;
 
-            var neighbours = [this.getCell(x - 1, y - 1), this.getCell(x, y - 1), this.getCell(x + 1, y - 1), this.getCell(x - 1, y), this.getCell(x + 1, y), this.getCell(x - 1, y + 1), this.getCell(x, y + 1), this.getCell(x + 1, y + 1)];
+            const neighbours = [this.getCell(x - 1, y - 1), this.getCell(x, y - 1), this.getCell(x + 1, y - 1), this.getCell(x - 1, y), this.getCell(x + 1, y), this.getCell(x - 1, y + 1), this.getCell(x, y + 1), this.getCell(x + 1, y + 1)];
 
             for (let i = 0; i < neighbours.length; i++) {
 
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         printNextGeneration() {
 
-            for (var i = 0; i < this.boardState.length; i++) {
+            for (let i = 0; i < this.boardState.length; i++) {
 
                 if (this.boardState[i] === 1 && this.cells[i].className !== 'live') {
 
