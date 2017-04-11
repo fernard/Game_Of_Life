@@ -157,14 +157,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
+    document.querySelector('#create-board').addEventListener('click', function(e) {
+
+            e.preventDefault();
+            const width = document.querySelector('#board-width').value;
+            const height = document.querySelector('#board-height').value;
+            game.init(width, height);
+            game.run();
+            
+
+
+        });
 
     document.querySelector('#play').addEventListener('click', function(e) {
 
-        e.preventDefault();
-        const width = document.querySelector('#board-width').value;
-        const height = document.querySelector('#board-height').value;
-        game.init(width, height);
-        game.run();
         game.runInterval(game.nextGenFn);
 
 

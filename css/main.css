@@ -8,16 +8,23 @@ body {
     background-color: #cccccc;
 }
 
-.flex-container {
+.flex-container, .input-container {
   display: flex;
   flex-direction: column;
+}
+.flex-container {
   align-items: center;
+  margin-top: 50px;
 }
 .input-container {
 
-  display: flex;
-  flex-direction: column;
   width: 150px;
+}
+
+.input-container * {
+
+margin: 10px 0;
+
 }
 #board div {
     width: 10px;
@@ -28,8 +35,13 @@ body {
 
 }
 
-#board div.live {
-    background-color: #000000;
+#board > .live {
+    background-color: #668c99;
+}
+
+#board > .live:nth-of-type(even) {
+
+  background-color: #3c3c3c;
 }
 
 #board {
@@ -49,4 +61,12 @@ justify-content: center;
 #game-set button {
 
   margin: 10px;
+}
+
+button {
+
+  background: #010048;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
 }
