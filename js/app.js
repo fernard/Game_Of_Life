@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
+/* jshint esversion: 6 */
+
+document.addEventListener('DOMContentLoaded', ()=> {
 
     const GameOfLife = {
 
@@ -26,17 +28,17 @@ document.addEventListener('DOMContentLoaded', function() {
             this.numberOfCells = this.width * this.height;
 
             for (let i = 0; i < this.numberOfCells; i++) {
-                const div = '<div></div>'
+                const div = '<div></div>';
                 this.board.innerHTML += div;
 
             }
-            this.cells = Array.prototype.slice.call(document.querySelectorAll('#board div'));
+            this.cells = Array.prototype.map.call(this.board.children, cell => cell);
 
             this.cells.forEach(function(cell, index) {
 
                 cell.addEventListener('click', function() {
 
-                    if (this.className === 'live') {
+                    if (this.classList.contains('live')) {
 
                         this.classList.remove('live');
                     } else {
@@ -61,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cellSetState(x, y, state) {
 
 
-            if (this.getCell(x, y).className === state) {
+            if (this.getCell(x, y).classList.contains(state)) {
                 this.getCell(x, y).classList.remove(state);
 
             } else {
@@ -97,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             for (let i = 0; i < neighbours.length; i++) {
 
-                if (neighbours[i] !== undefined && neighbours[i].className === "live") {
+                if (neighbours[i] !== undefined && neighbours[i].classList.contains('live')) {
 
                     livingCells++;
                 }
@@ -131,12 +133,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
             for (let i = 0; i < this.boardState.length; i++) {
 
-                if (this.boardState[i] === 1 && this.cells[i].className !== 'live') {
+                if (this.boardState[i] === 1 && !this.cells[i].classList.contains('live')) {
 
                     this.cells[i].classList.add('live');
 
 
-                } else if (this.boardState[i] === 0 && this.cells[i].className === 'live')
+                } else if (this.boardState[i] === 0 && this.cells[i].classList.contains('live'))
                     this.cells[i].classList.remove('live');
             }
         },
@@ -155,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    }
+    };
 
     document.querySelector('#create-board').addEventListener('click', function(e) {
 
@@ -164,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const height = document.querySelector('#board-height').value;
             game.init(width, height);
             game.run();
-            
+
 
 
         });
