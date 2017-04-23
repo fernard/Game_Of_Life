@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
                 this.board.innerHTML += div;
 
             }
-            this.cells = Array.prototype.map.call(this.board.children, cell => cell);
+            this.cells = Array.from(this.board.children);
 
             this.cells.forEach(function(cell, index) {
 
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
             for (let i = 0; i < neighbours.length; i++) {
 
-                if (neighbours[i] !== undefined && neighbours[i].classList.contains('live')) {
+                if (neighbours[i] && neighbours[i].classList.contains('live')) {
 
                     livingCells++;
                 }
@@ -133,12 +133,12 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
             for (let i = 0; i < this.boardState.length; i++) {
 
-                if (this.boardState[i] === 1 && !this.cells[i].classList.contains('live')) {
+                if (this.boardState[i] && !this.cells[i].classList.contains('live')) {
 
                     this.cells[i].classList.add('live');
 
 
-                } else if (this.boardState[i] === 0 && this.cells[i].classList.contains('live'))
+                } else if (!this.boardState[i] && this.cells[i].classList.contains('live'))
                     this.cells[i].classList.remove('live');
             }
         },
